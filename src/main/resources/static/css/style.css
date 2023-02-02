@@ -3,3 +3,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+body {
+    background-image: url("/images/background-image.jpg");
+}
+

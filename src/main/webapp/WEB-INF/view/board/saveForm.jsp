@@ -6,7 +6,7 @@
                 <input type="text" class="form-control" placeholder="Enter title" name="title" id="title">
             </div>
 
-            <div class="form-group">
+            <div class="form-group bg-white">
                 <textarea class="form-control summernote" rows="5" id="content" name="content"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">글쓰기완료</button>
