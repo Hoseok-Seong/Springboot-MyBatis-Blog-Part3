@@ -2,19 +2,20 @@
 <%@ include file="../layout/header.jsp" %>
     <div class="container my-3">
         <div class="mb-3">
-            <a href="#" class="btn btn-warning">수정</a>
+            <a href="/board/1/updateForm" class="btn btn-warning">수정</a>
             <button id="btn-delete" class="btn btn-danger">삭제</button>
         </div>
 
-        <div class="mb-2">
+        <div class="mb-2 text-white">
             글 번호 : <span id="id"><i>3 </i></span> 작성자 : <span><i>ssar </i></span>
+            <i id="heart" class="fa-regular fa-heart ms-2 my-cursor" value=""></i>
         </div>
 
-        <div>
+        <div class="text-white">
             <h3>제목입니다</h3>
         </div>
         <hr />
-        <div>
+        <div class="text-white">
             <div>내용입니다</div>
         </div>
         <hr />
@@ -37,7 +38,7 @@
                     <div>댓글내용입니다</div>
                     <div class="d-flex">
                         <div class="font-italic">작성자 : cos &nbsp;</div>
-                        <button onClick="replyDelete()" class="badge bg-danger">삭제</button>
+                        <button onClick="replyDelete()" class="badge bg-secondary">삭제</button>
                     </div>
                 </li>
             </ul>

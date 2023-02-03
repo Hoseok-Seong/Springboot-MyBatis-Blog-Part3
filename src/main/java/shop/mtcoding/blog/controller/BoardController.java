@@ -2,16 +2,17 @@ package shop.mtcoding.blog.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class BoardController {
-    @GetMapping("/")
+    @GetMapping({ "/", "/board" })
     public String main() {
         return "/board/main";
     }
 
-    @GetMapping("/detail")
-    public String detail() {
+    @GetMapping("/board/{id}")
+    public String detail(@PathVariable int id) {
         return "/board/detail";
     }
 
@@ -20,8 +21,8 @@ public class BoardController {
         return "/board/saveForm";
     }
 
-    @GetMapping("/board/updateForm")
-    public String boardUpdateForm() {
+    @GetMapping("/board/{id}/updateForm")
+    public String boardUpdateForm(@PathVariable int id) {
         return "/board/boardUpdateForm";
     }
 }

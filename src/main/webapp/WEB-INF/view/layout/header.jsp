@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
     <title>Blog</title>
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon"> 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +35,7 @@
                         <a class="nav-link" href="/board/saveForm">글쓰기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/updateForm">회원정보</a>
+                        <a class="nav-link" href="/user/1/updateForm">회원정보</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">로그아웃</a>
