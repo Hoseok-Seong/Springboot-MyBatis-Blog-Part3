@@ -5,11 +5,15 @@
 
 <mapper namespace="shop.mtcoding.blog.model.UserRepository">
    <insert id="insert">
-      insert into user_tb(username, password, email, created_at) values(#{username}, #{password}, #{email}, now())
+      insert ignore into user_tb(username, password, email, created_at) values(#{username}, #{password}, #{email}, now())
    </insert>
    
    <select id="findById" resultType="shop.mtcoding.blog.model.User">
       select * from user_tb where id = #{id}
+   </select>
+
+   <select id="findByName" resultType="shop.mtcoding.blog.model.User">
+      select * from user_tb where username = #{username}
    </select>
 
    <select id="findAll" resultType="shop.mtcoding.blog.model.User">

@@ -6,17 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import shop.mtcoding.blog.dto.user.UserReqDto.JoinReqDto;
+import shop.mtcoding.blog.handler.exception.CustomException;
 import shop.mtcoding.blog.model.User;
 import shop.mtcoding.blog.model.UserRepository;
 
 @Service
-public class LoginService {
-
+public class UserService {
     @Autowired
     private HttpSession session;
 
     @Autowired
     private UserRepository userRepository;
+
+    @Transactional
+    public int 가입하기(JoinReqDto joinReqDto) {
+        // 1. db에 insert하기
+        int result = userRepository.insert(joinReqDto.getUsername(), joinReqDto.getPassword(), joinReqDto.getEmail());
+
+        if (result != 1) {
+            return -1;
+        }
+
+        return 1;
+        // commit
+    }
 
     @Transactional
     public int 로그인하기(String username, String password) {
@@ -31,5 +45,4 @@ public class LoginService {
         return 1;
         // commit
     }
-
 }

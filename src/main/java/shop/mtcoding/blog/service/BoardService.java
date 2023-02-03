@@ -4,18 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import shop.mtcoding.blog.model.UserRepository;
+import shop.mtcoding.blog.model.BoardRepository;
 
 @Service
-public class JoinService {
+public class BoardService {
 
     @Autowired
-    private UserRepository userRepository;
+    private BoardRepository boardRepository;
 
     @Transactional
-    public int 가입하기(String username, String password, String email) {
+    public int 글쓰기(int userId, String title, String content) {
         // 1. db에 insert하기
-        int result = userRepository.insert(username, password, email);
+        int result = boardRepository.insert(userId, title, content);
 
         if (result != 1) {
             return -1;

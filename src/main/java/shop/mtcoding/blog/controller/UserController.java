@@ -8,18 +8,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import shop.mtcoding.blog.dto.user.UserReqDto.JoinReqDto;
+import shop.mtcoding.blog.handler.exception.CustomException;
 import shop.mtcoding.blog.model.User;
 import shop.mtcoding.blog.model.UserRepository;
-import shop.mtcoding.blog.service.JoinService;
-import shop.mtcoding.blog.service.LoginService;
+import shop.mtcoding.blog.service.UserService;
 
 @Controller
 public class UserController {
     @Autowired
-    private JoinService joinService;
-
-    @Autowired
-    private LoginService loginService;
+    private UserService userService;
 
     @Autowired
     private UserRepository userRepository;
@@ -49,11 +47,21 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String join(String username, String password, String email) {
-        int result = joinService.가입하기(username, password, email);
+    public String join(JoinReqDto joinReqDto) {
+        if (joinReqDto.getUsername() == null || joinReqDto.getUsername().isEmpty()) {
+            throw new CustomException("아이디를 작성해주세요.");
+        }
+        if (joinReqDto.getPassword() == null || joinReqDto.getPassword().isEmpty()) {
+            throw new CustomException("비밀번호를 작성해주세요.");
+        }
+        if (joinReqDto.getEmail() == null || joinReqDto.getEmail().isEmpty()) {
+            throw new CustomException("이메일을 작성해주세요.");
+        }
 
-        if (result == -1) {
-            return "redirect:/joinForm";
+        int result = userService.가입하기(joinReqDto);
+
+        if (result != 1) {
+            throw new CustomException("회원가입이 실패하였습니다.");
         }
 
         return "redirect:/loginForm";
@@ -65,13 +73,13 @@ public class UserController {
         User user = userRepository.findByUsernameAndPassword(username, password);
 
         if (user == null) {
-            return "redirect:/loginForm";
+            throw new CustomException("존재하지 않는 아이디거나 비밀번호를 다시 확인해주시기 바랍니다.");
         }
 
-        int result = loginService.로그인하기(username, password);
+        int result = userService.로그인하기(username, password);
 
         if (result == -1) {
-            return "redirect:/loginForm";
+            throw new CustomException("로그인이 실패하였습니다.");
         }
 
         return "redirect:/";
