@@ -21,7 +21,7 @@ public class UserService {
     private UserRepository userRepository;
 
     @Transactional
-    public int 가입하기(JoinReqDto joinReqDto) {
+    public void 가입하기(JoinReqDto joinReqDto) {
         // 1. 유저 유효성 검사
         User sameuser = userRepository.findByName(joinReqDto.getUsername());
 
@@ -32,11 +32,8 @@ public class UserService {
         int result = userRepository.insert(joinReqDto.getUsername(), joinReqDto.getPassword(), joinReqDto.getEmail());
 
         if (result != 1) {
-            return -1;
+            throw new CustomException("회원가입이 실패하였습니다.");
         }
-
-        return 1;
-        // commit
     }
 
     @Transactional(readOnly = true)

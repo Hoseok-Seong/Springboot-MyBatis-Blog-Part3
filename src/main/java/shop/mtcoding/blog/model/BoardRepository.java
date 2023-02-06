@@ -10,9 +10,14 @@ public interface BoardRepository {
     public int insert(@Param("userId") int userId, @Param("title") String title,
             @Param("content") String content);
 
-    public User findById(int id);
+    public int updateById(@Param("id") int id, @Param("title") String title,
+            @Param("content") String content);
 
-    public User findByUserId(int userId);
+    public int deleteById(int id);
 
-    public List<User> findAll();
+    public Board findById(int id);
+
+    public Board findByUserId(int userId);
+
+    public List<Board> findAll();
 }
