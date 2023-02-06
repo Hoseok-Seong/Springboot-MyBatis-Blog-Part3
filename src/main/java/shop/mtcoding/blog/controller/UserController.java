@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import shop.mtcoding.blog.dto.user.UserReqDto.JoinReqDto;
+import shop.mtcoding.blog.dto.user.UserReqDto.LoginReqDto;
 import shop.mtcoding.blog.handler.exception.CustomException;
 import shop.mtcoding.blog.model.User;
 import shop.mtcoding.blog.model.UserRepository;
@@ -28,22 +29,6 @@ public class UserController {
     @GetMapping("/joinForm")
     public String joinForm() {
         return "/user/joinForm";
-    }
-
-    @GetMapping("/loginForm")
-    public String loginForm() {
-        return "/user/loginForm";
-    }
-
-    @GetMapping("/user/{id}/updateForm")
-    public String updateForm(@PathVariable int id) {
-        return "/user/updateForm";
-    }
-
-    @GetMapping("/logout")
-    public String logout() {
-        session.invalidate();
-        return "redirect:/";
     }
 
     @PostMapping("/join")
@@ -67,22 +52,42 @@ public class UserController {
         return "redirect:/loginForm";
     }
 
-    @PostMapping("/login")
-    public String login(String username, String password) {
-        // 1. 유저 유효성 검사
-        User user = userRepository.findByUsernameAndPassword(username, password);
+    @GetMapping("/loginForm")
+    public String loginForm() {
+        return "/user/loginForm";
+    }
 
-        if (user == null) {
+    @PostMapping("/login")
+    public String login(LoginReqDto loginReqDto) {
+        if (loginReqDto.getUsername() == null || loginReqDto.getUsername().isEmpty()) {
+            throw new CustomException("아이디를 작성해주세요.");
+        }
+        if (loginReqDto.getPassword() == null || loginReqDto.getPassword().isEmpty()) {
+            throw new CustomException("비밀번호를 작성해주세요.");
+        }
+        // 1. 로그인하기 service
+        User principal = userService.로그인하기(loginReqDto);
+
+        // 2. session에 저장
+        session.setAttribute("principal", principal);
+
+        // 3. principal 유효성 검사
+        if (session.getAttribute("principal") == null) {
             throw new CustomException("존재하지 않는 아이디거나 비밀번호를 다시 확인해주시기 바랍니다.");
         }
 
-        int result = userService.로그인하기(username, password);
-
-        if (result == -1) {
-            throw new CustomException("로그인이 실패하였습니다.");
-        }
-
         return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        session.invalidate();
+        return "redirect:/";
+    }
+
+    @GetMapping("/user/{id}/updateForm")
+    public String updateForm(@PathVariable int id) {
+        return "/user/updateForm";
     }
 
 }
