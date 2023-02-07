@@ -1,14 +1,18 @@
 package shop.mtcoding.blog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import shop.mtcoding.blog.dto.board.BoardReqDto.BoardSaveReqDto;
+import shop.mtcoding.blog.dto.board.BoardRespDto.BoardMainRespDto;
 import shop.mtcoding.blog.handler.exception.CustomException;
 import shop.mtcoding.blog.model.BoardRepository;
 
+@Transactional(readOnly = true)
 @Service
 public class BoardService {
 
