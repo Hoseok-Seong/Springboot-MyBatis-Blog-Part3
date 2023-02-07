@@ -28,4 +28,7 @@ public class BoardService {
         }
 
     }
+
+    public void 게시글삭제(int id) {
+    }
 }

@@ -1,12 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../layout/header.jsp" %>
     <div class="container my-3">
-        <c:if test="${dto.userId == principal.id}">
             <div class="mb-3">
                 <a href="/board/1/updateForm" class="btn btn-warning">수정</a>
-                <button id="btn-delete" class="btn btn-danger">삭제</button>
+                <button onClick="deleteById(${dto.id})" class="btn btn-danger">삭제</button>
             </div>
-        </c:if>
+
+        <script>
+            function deleteById(id) {
+                $.ajax({
+                    type:"delete",
+                    url:"/board/"+id,
+                    dataType:"json"
+                }).done((res)=>{ //20x일 때
+                    alert(res.msg);
+                    location.href="/";
+                }).fail((err)=>{ // 40x, 50x 일 때
+                    alert(err.responseJSON.msg);
+                });
+            }
+        </script>
 
         <div class="mb-2 text-white">
             글 번호 : <span id="id"><i>${dto.id} </i></span> 작성자 : <span><i>${dto.username} </i></span>
