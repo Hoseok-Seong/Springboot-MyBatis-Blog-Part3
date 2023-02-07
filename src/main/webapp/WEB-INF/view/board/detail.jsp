@@ -11,7 +11,7 @@
                 $.ajax({
                     type:"delete",
                     url:"/board/"+id,
-                    dataType:"json"
+                    dataType:"json" //json으로 받을 것이다
                 }).done((res)=>{ //20x일 때
                     alert(res.msg);
                     location.href="/";

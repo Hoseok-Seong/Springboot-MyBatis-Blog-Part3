@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class Board {
     private int id;
-    private String username;
+    private int userId;
     private String title;
     private String content;
     private Timestamp createdAt;
