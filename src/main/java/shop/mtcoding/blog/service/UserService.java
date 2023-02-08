@@ -26,13 +26,13 @@ public class UserService {
         User sameuser = userRepository.findByName(joinReqDto.getUsername());
 
         if (sameuser != null) {
-            throw new CustomException("동일한 아이디가 존재합니다.");
+            throw new CustomException("동일한 아이디가 존재합니다");
         }
         // 1. db에 insert하기
         int result = userRepository.insert(joinReqDto.getUsername(), joinReqDto.getPassword(), joinReqDto.getEmail());
 
         if (result != 1) {
-            throw new CustomException("회원가입이 실패하였습니다.");
+            throw new CustomException("회원가입이 실패하였습니다");
         }
     }
 
@@ -43,7 +43,7 @@ public class UserService {
 
         // 2. principal 유효성 검사
         if (principal == null) {
-            throw new CustomException("존재하지 않는 아이디거나 비밀번호를 다시 확인해주시기 바랍니다.");
+            throw new CustomException("존재하지 않는 아이디거나 비밀번호를 다시 확인해주시기 바랍니다");
         }
 
         return principal;

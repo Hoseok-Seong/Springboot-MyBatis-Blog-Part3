@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../layout/header.jsp" %>
     <div class="container my-3">
+            <c:if test="${dto.userId == principal.id}">
             <div class="mb-3">
-                <a href="/board/1/updateForm" class="btn btn-warning">수정</a>
+                <a href="/board/${dto.id}/updateForm" class="btn btn-warning">수정</a>
                 <button onClick="deleteById(${dto.id})" class="btn btn-danger">삭제</button>
             </div>
+            </c:if>
 
         <script>
             function deleteById(id) {

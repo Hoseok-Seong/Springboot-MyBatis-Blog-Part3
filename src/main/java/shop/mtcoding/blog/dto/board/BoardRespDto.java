@@ -23,4 +23,14 @@ public class BoardRespDto {
         private String content;
     }
 
+    @Getter
+    @Setter
+    public static class BoardUpdateRespDto {
+        private int id;
+        private int userId;
+        private String title;
+        private String username;
+        private String content;
+    }
+
 }

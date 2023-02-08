@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import shop.mtcoding.blog.dto.board.BoardRespDto.BoardMainRespDto;
 
+// Transactional이 내부 어노테이션 되어 있음.
 @MybatisTest
 public class BoardRepositoryTest {
 

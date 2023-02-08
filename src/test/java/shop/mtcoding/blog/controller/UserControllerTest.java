@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 
 import shop.mtcoding.blog.model.User;
 
@@ -21,6 +22,7 @@ import shop.mtcoding.blog.model.User;
  * SpringBootTest는 통합테스트 (실제 환경과 동일하게 Bean이 생성됨)
  * AutoConfigureMockMvc는 Mock 환경의 IoC컨테이너에 MockMvc Bean이 생성됨
  */
+@Transactional // 메서드 실행 직후 롤백! // auto_increment 초기화 안 됨.
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 public class UserControllerTest {
