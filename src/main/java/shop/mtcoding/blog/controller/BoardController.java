@@ -110,7 +110,7 @@ public class BoardController {
         return "/board/boardUpdateForm";
     }
 
-    @PutMapping("/board/{id}/update")
+    @PutMapping("/board/{id}")
     public @ResponseBody ResponseEntity<?> update(@PathVariable int id,
             @RequestBody BoardUpdateReqDto boardUpdateReqDto) {
         User principal = (User) session.getAttribute("principal");

@@ -11,5 +11,6 @@ create table board_tb(
     user_id int not null,
     title varchar(100) not null,
     content longtext not null,
+    thumbnail longtext not null,
     created_at timestamp not null
 );

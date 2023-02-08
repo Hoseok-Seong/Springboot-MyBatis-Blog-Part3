@@ -25,7 +25,7 @@
 
                 $.ajax({
                     type:"put",
-                    url:"/board/"+id+"/update",
+                    url:"/board/"+id,
                     data:JSON.stringify(data),
                     headers:{
                     "Content-Type":"application/json; charset=utf-8",
