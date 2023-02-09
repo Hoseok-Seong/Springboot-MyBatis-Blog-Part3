@@ -30,7 +30,7 @@ public class BoardService {
 
         int result = boardRepository.insert(userId, boardSaveReqDto.getTitle(), boardSaveReqDto.getContent(), img);
         if (result != 1) {
-            throw new CustomException("글 작성이 실패하였습니다", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomApiException("글 작성이 실패하였습니다", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }

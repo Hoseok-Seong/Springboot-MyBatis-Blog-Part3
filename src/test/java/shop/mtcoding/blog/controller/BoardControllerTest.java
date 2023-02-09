@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import shop.mtcoding.blog.dto.board.BoardReqDto.BoardSaveReqDto;
 import shop.mtcoding.blog.dto.board.BoardReqDto.BoardUpdateReqDto;
 import shop.mtcoding.blog.dto.board.BoardRespDto;
 import shop.mtcoding.blog.dto.board.BoardRespDto.BoardDetailRespDto;
@@ -65,19 +66,18 @@ public class BoardControllerTest {
     @Test
     public void save_test() throws Exception {
         // given
-        String title = "";
-        for (int i = 0; i < 99; i++) { // 글자수로 인식
-            title += "가";
-        }
+        BoardSaveReqDto boardSaveReqDto = new BoardSaveReqDto();
+        boardSaveReqDto.setTitle("제목");
+        boardSaveReqDto.setContent("내용");
 
-        String requestBody = "title=" + title + "&content=내용1";
+        String requestBody = om.writeValueAsString(boardSaveReqDto);
 
         // when
         ResultActions resultActions = mvc.perform(post("/board").content(requestBody)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE).session(mockSession));
+                .contentType(MediaType.APPLICATION_JSON_VALUE).session(mockSession));
 
         // then
-        resultActions.andExpect(status().is3xxRedirection());
+        resultActions.andExpect(status().isCreated());
     }
 
     @Test
@@ -150,8 +150,7 @@ public class BoardControllerTest {
         System.out.println("테스트 : " + requestBody);
 
         // when
-        ResultActions resultActions = mvc.perform(put("/board/" + id +
-                "/update").content(requestBody)
+        ResultActions resultActions = mvc.perform(put("/board/" + id).content(requestBody)
                 .contentType(MediaType.APPLICATION_JSON_VALUE).session(mockSession));
 
         // /*
