@@ -16,10 +16,16 @@ insert into board_tb(user_id, title, content, thumbnail, created_at) values('2',
 insert into board_tb(user_id, title, content, thumbnail, created_at) values('3', '제목12', '글내용12', '/images/dora.png', now());
 
 insert into reply_tb(comment, user_id, board_id, created_at) values('댓글1', '1', '1', now());
-insert into reply_tb(comment, user_id, board_id, created_at) values('댓글2', '2', '2', now());
-insert into reply_tb(comment, user_id, board_id, created_at) values('댓글3', '3', '3', now());
-insert into reply_tb(comment, user_id, board_id, created_at) values('댓글4', '1', '4', now());
-insert into reply_tb(comment, user_id, board_id, created_at) values('댓글5', '2', '5', now());
-insert into reply_tb(comment, user_id, board_id, created_at) values('댓글6', '3', '6', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글2', '2', '1', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글3', '3', '1', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글4', '1', '2', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글5', '2', '2', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글6', '3', '2', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글7', '1', '3', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글8', '2', '3', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글9', '3', '3', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글10', '1', '4', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글11', '2', '4', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글12', '3', '4', now());
 
 commit;

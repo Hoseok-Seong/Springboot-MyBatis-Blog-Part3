@@ -9,15 +9,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.Getter;
 import lombok.Setter;
+import shop.mtcoding.blog.dto.reply.ReplyReqDto.ReplySaveReqDto;
 import shop.mtcoding.blog.handler.exception.CustomApiException;
 import shop.mtcoding.blog.handler.exception.CustomException;
 import shop.mtcoding.blog.model.User;
+import shop.mtcoding.blog.service.ReplyService;
 
 @Controller
 public class ReplyController {
 
     @Autowired
     private HttpSession session;
+
+    @Autowired
+    private ReplyService replyService;
 
     @PostMapping("/reply")
     public String save(ReplySaveReqDto replySaveReqDto) {
@@ -27,21 +32,15 @@ public class ReplyController {
             throw new CustomException("인증이 되지 않았습니다", HttpStatus.UNAUTHORIZED);
         }
         if (replySaveReqDto.getComment() == null || replySaveReqDto.getComment().isEmpty()) {
-            throw new CustomApiException("comment를 작성해주세요");
+            throw new CustomException("comment를 작성해주세요");
         }
         if (replySaveReqDto.getBoardId() == null) {
-            throw new CustomApiException("boardId가 필요합니다.");
+            throw new CustomException("boardId가 필요합니다.");
         }
 
         // 서비스 호출 (replySaveReqDto, principal.getId())
+        replyService.댓글쓰기(replySaveReqDto, principal.getId());
 
         return "redirect:/board/" + replySaveReqDto.getBoardId();
-    }
-
-    @Setter
-    @Getter
-    public static class ReplySaveReqDto {
-        private String comment;
-        private Integer boardId;
     }
 }

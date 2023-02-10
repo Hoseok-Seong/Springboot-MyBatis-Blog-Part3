@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import shop.mtcoding.blog.controller.ReplyController.ReplySaveReqDto;
-import shop.mtcoding.blog.handler.exception.CustomApiException;
+import shop.mtcoding.blog.dto.reply.ReplyReqDto.ReplySaveReqDto;
+import shop.mtcoding.blog.handler.exception.CustomException;
 import shop.mtcoding.blog.model.ReplyRepository;
 
 @Transactional(readOnly = true)
@@ -22,7 +22,7 @@ public class ReplyService {
 
         int result = replyRepository.insert(replySaveReqDto.getComment(), replySaveReqDto.getBoardId(), principalId);
         if (result != 1) {
-            throw new CustomApiException("댓글 작성이 실패하였습니다", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomException("댓글 작성이 실패하였습니다", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
