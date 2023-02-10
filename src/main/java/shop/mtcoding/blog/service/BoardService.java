@@ -10,7 +10,6 @@ import shop.mtcoding.blog.dto.board.BoardReqDto.BoardSaveReqDto;
 import shop.mtcoding.blog.dto.board.BoardReqDto.BoardUpdateReqDto;
 import shop.mtcoding.blog.dto.board.BoardRespDto.BoardUpdateRespDto;
 import shop.mtcoding.blog.handler.exception.CustomApiException;
-import shop.mtcoding.blog.handler.exception.CustomException;
 import shop.mtcoding.blog.model.Board;
 import shop.mtcoding.blog.model.BoardRepository;
 import shop.mtcoding.blog.util.ThumbnailParser;

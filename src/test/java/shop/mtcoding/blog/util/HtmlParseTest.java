@@ -18,6 +18,14 @@ public class HtmlParseTest {
             System.out.println(headline.attr("title"));
             System.out.println(headline.absUrl("href"));
         }
+        // String url =
+        // "https://search.naver.com/search.naver?sm=tab_hty.top&where=view&query=%EB%B6%80%EC%82%B0+%EB%A7%9B%EC%A7%91&oquery=%EB%82%A0%EC%94%A8&tqi=h%2BTKwsp0J14ssSe6%2F3wssssssZw-060189&mode=normal";
+        // Document doc = Jsoup.connect(url).get();
+        // Elements elements = doc.select("");
+        // elements.stream().forEach((e) -> {
+        // System.out.println(e.text());
+        // });
+
     }
 
     @Test
