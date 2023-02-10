@@ -15,4 +15,11 @@ insert into board_tb(user_id, title, content, thumbnail, created_at) values('1',
 insert into board_tb(user_id, title, content, thumbnail, created_at) values('2', '제목11', '글내용11', '/images/dora.png', now());
 insert into board_tb(user_id, title, content, thumbnail, created_at) values('3', '제목12', '글내용12', '/images/dora.png', now());
 
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글1', '1', '1', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글2', '2', '2', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글3', '3', '3', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글4', '1', '4', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글5', '2', '5', now());
+insert into reply_tb(comment, user_id, board_id, created_at) values('댓글6', '3', '6', now());
+
 commit;
