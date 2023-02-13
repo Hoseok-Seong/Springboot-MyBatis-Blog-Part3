@@ -1,7 +1,5 @@
 package shop.mtcoding.blog.controller;
 
-import java.io.BufferedReader;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;

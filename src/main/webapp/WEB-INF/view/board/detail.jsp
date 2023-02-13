@@ -57,17 +57,28 @@
                     <div>${reply.comment}</div>
                     <div class="d-flex">
                         <div class="font-italic">작성자 : ${reply.username}</div>
-                        <button onClick="DeleteByReplyId(${reply.id})" class="badge bg-secondary">삭제</button>
+                        <c:if test="${principal.id == reply.userId}" >
+                            <button onClick="DeleteByReplyId(${reply.id})" class="badge bg-secondary">삭제</button>
+                        </c:if>
                     </div>
                 </li>
                 </c:forEach>
             </ul>
         </div>
     </div>
-    <script>
+        <script>
             function deleteByReplyId(id) {
-                // $("#reply-"+id).remove();
-                // location.reload();
+                $.ajax({
+                    type:"delete",
+                    url:"/reply/"+id,
+                    dataType:"json" //json으로 받을 것이다
+                }).done((res)=>{ //20x일 때
+                    alert(res.msg);
+                    // location.reload(); //간단하게 현재 페이지로 리로드. 통신 두 번 요청
+                    $("#reply-"+id).remove(); // ajax 통신. 통신 한 번에 끝냄.
+                }).fail((err)=>{ // 40x, 50x 일 때
+                    alert(err.responseJSON.msg);
+                });
             }
         </script>
 <%@ include file="../layout/footer.jsp" %>

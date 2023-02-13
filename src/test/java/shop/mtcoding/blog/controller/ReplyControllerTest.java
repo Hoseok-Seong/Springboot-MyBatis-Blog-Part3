@@ -1,8 +1,6 @@
 package shop.mtcoding.blog.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -10,8 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,10 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import shop.mtcoding.blog.dto.board.BoardReqDto.BoardSaveReqDto;
 import shop.mtcoding.blog.dto.board.BoardReqDto.BoardUpdateReqDto;
-import shop.mtcoding.blog.dto.board.BoardRespDto;
-import shop.mtcoding.blog.dto.board.BoardRespDto.BoardDetailRespDto;
 import shop.mtcoding.blog.model.User;
 
 /*
