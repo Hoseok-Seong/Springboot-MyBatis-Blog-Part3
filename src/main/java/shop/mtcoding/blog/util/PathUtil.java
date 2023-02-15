@@ -16,6 +16,7 @@ public class PathUtil {
         return System.getProperty("user.dir") + "\\src\\main\\resources\\static\\";
     }
 
+    // 순서를 제어하기 위함으로 코드 작성
     public static String writeImageFile(MultipartFile profile) {
         UUID uuid = UUID.randomUUID();
         String uuidImageRealName = "images\\" + uuid + "_" + profile.getOriginalFilename();

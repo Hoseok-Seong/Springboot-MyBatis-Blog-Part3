@@ -32,14 +32,13 @@ public class ReplyService {
     }
 
     @Transactional
-    public void 댓글삭제(int id, int principalId) {
+    public void 댓글삭제(int id, int principalId, String role) {
         Reply reply = replyRepository.findById(id);
         if (reply == null) {
             throw new CustomApiException("댓글이 존재하지 않습니다");
         }
-        if (reply.getUserId() != principalId) {
+        if (reply.getUserId() != principalId && !role.equals("admin")) {
             throw new CustomApiException("댓글을 삭제할 권한이 없습니다", HttpStatus.FORBIDDEN);
-
         }
         // 1. 인증 ok, 2. 댓글 존재 유무 3. 권한 ok
         try {

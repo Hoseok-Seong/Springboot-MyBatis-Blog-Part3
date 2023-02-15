@@ -52,7 +52,7 @@ public class ReplyController {
         if (principal == null) {
             throw new CustomException("인증이 되지 않았습니다", HttpStatus.UNAUTHORIZED);
         }
-        replyService.댓글삭제(id, principal.getId());
+        replyService.댓글삭제(id, principal.getId(), principal.getRole());
         // return ResponseEntity.ok();
         return new ResponseEntity<>(new ResponseDto<>(1, "댓글 삭제 성공", null), HttpStatus.OK);
     }

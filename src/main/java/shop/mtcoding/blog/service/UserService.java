@@ -1,18 +1,15 @@
 package shop.mtcoding.blog.service;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import shop.mtcoding.blog.dto.user.UserReqDto.JoinReqDto;
 import shop.mtcoding.blog.dto.user.UserReqDto.LoginReqDto;
+import shop.mtcoding.blog.handler.exception.CustomApiException;
 import shop.mtcoding.blog.handler.exception.CustomException;
 import shop.mtcoding.blog.model.User;
 import shop.mtcoding.blog.model.UserRepository;
@@ -67,5 +64,13 @@ public class UserService {
         userRepository.updateById(userPS.getId(), userPS.getUsername(), userPS.getPassword(), userPS.getEmail(),
                 userPS.getProfile(), userPS.getCreatedAt());
         return userPS;
+    }
+
+    @Transactional
+    public void 회원삭제(int id) {
+        int result = userRepository.deleteById(id);
+        if (result != 1) {
+            throw new CustomApiException("회원삭제가 실패하였습니다");
+        }
     }
 }

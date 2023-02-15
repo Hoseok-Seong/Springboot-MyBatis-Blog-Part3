@@ -1,5 +1,7 @@
 package shop.mtcoding.blog.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
+    @Autowired
+    private HttpSession session;
+
     // where 절에 걸리는 파라미터를 앞에 받기.
     @Transactional
     public void 글쓰기(BoardSaveReqDto boardSaveReqDto, int userId) {
@@ -35,14 +40,13 @@ public class BoardService {
     }
 
     @Transactional
-    public void 게시글삭제(int id, int userId) {
+    public void 게시글삭제(int id, int userId, String role) {
         Board boardPS = boardRepository.findById(id);
         if (boardPS == null) {
             throw new CustomApiException("존재하지 않는 게시글입니다");
         }
-        if (boardPS.getUserId() != userId) {
+        if (boardPS.getUserId() != userId && !role.equals("admin")) {
             throw new CustomApiException("해당 게시글을 삭제할 권한이 없습니다", HttpStatus.FORBIDDEN);
-
         }
 
         // 제어권이 없으므로 try, catch
