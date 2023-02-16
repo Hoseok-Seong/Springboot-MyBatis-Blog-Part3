@@ -13,7 +13,7 @@ public interface UserRepository {
 
         public User findById(int id);
 
-        public User findByName(String username);
+        public List<User> findByName(String username);
 
         public List<User> findAll();
 

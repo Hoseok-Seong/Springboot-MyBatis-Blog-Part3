@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.blog.dto.ResponseDto;
@@ -174,4 +175,47 @@ public class AdminController {
         return new ResponseEntity<>(new ResponseDto<>(1, "삭제 성공", null), HttpStatus.OK);
 
     }
+
+    @PostMapping("/admin/userDetail")
+    public String adminUserDetail(Model model, String username) {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/admin/loginForm";
+        }
+
+        if (!principal.getRole().equals("admin")) {
+            throw new CustomException("관리자만 접속 가능합니다.");
+        }
+        model.addAttribute("userDetailInfo", userRepository.findByName(username));
+        return "admin/userDetail";
+    }
+
+    @PostMapping("/admin/boardDetail")
+    public String adminBoardDetail(Model model, String title) {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/admin/loginForm";
+        }
+
+        if (!principal.getRole().equals("admin")) {
+            throw new CustomException("관리자만 접속 가능합니다.");
+        }
+        model.addAttribute("boardDetailInfo", boardRepository.findByTitle(title));
+        return "admin/boardDetail";
+    }
+
+    // @PostMapping("/admin/replyDetail")
+    // public String adminReplyDetail(Model model, String username) {
+    // User principal = (User) session.getAttribute("principal");
+    // if (principal == null) {
+    // return "redirect:/admin/loginForm";
+    // }
+
+    // if (!principal.getRole().equals("admin")) {
+    // throw new CustomException("관리자만 접속 가능합니다.");
+    // }
+    // model.addAttribute("replyDetailInfo", userRepository.findByName(username));
+    // return "admin/userDetail";
+    // }
+
 }

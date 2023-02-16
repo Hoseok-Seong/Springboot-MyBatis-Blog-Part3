@@ -35,4 +35,6 @@ public interface BoardRepository {
 
         public int deleteLikesCountById(int id);
 
+        public List<Board> findByTitle(String title);
+
 }

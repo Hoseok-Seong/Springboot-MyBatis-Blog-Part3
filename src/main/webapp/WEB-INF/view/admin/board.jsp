@@ -21,6 +21,7 @@
                 <th scope="col" class="text-white">제목</th>
                 <th scope="col" class="text-white">내용</th>
                 <th scope="col" class="text-white">썸네일</th>
+                <th scope="col" class="text-white">좋아요</th>
                 <th scope="col" class="text-white">작성일</th>
                 <th scope="col" class="text-white">삭제하기</th>
                 </tr>
@@ -33,6 +34,7 @@
                 <td class="text-white">${board.title}</td>
                 <td class="text-white">${board.content}</td>
                 <td class="text-white">${board.thumbnail}</td>
+                <td class="text-white">${board.likes}</td>
                 <td class="text-white">${board.createdAt}</td>
                 <td class="text-white" >
                 <button onClick="deleteByBoardId(${board.id})" class="badge bg-secondary">삭제</button></td>
@@ -40,6 +42,12 @@
             </tbody>
             </c:forEach>
             </table>
+            <form action="/admin/userDetail" method="post">
+                <div class="input-group mb-3">
+                <input id="username" name="username" type="text" class="form-control" placeholder="아이디로 검색이 가능합니다" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-primary" type="submit" id="button-addon2">검색</button>
+                </div>
+                </form>
     </div>
     <script>
             function deleteByBoardId(id) {

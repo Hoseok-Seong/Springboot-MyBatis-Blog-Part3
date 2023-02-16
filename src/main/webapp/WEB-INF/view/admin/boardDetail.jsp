@@ -12,28 +12,32 @@
         </ul>
       </div>
       <br/>
-      <h2 class="text-center text-white">관리자 댓글 관리 페이지</h2>
+      <h2 class="text-center text-white">관리자 게시글 관리 페이지</h2>
             <table class="table table-dark table-striped">
             <thead>
                 <tr>
                 <th scope="col" class="text-white">번호</th>
-                <th scope="col" class="text-white">댓글</th>
-                <th scope="col" class="text-white">아이디</th>
-                <th scope="col" class="text-white">게시글번호</th>
+                <th scope="col" class="text-white">작성자명</th>
+                <th scope="col" class="text-white">제목</th>
+                <th scope="col" class="text-white">내용</th>
+                <th scope="col" class="text-white">썸네일</th>
+                <th scope="col" class="text-white">좋아요</th>
                 <th scope="col" class="text-white">작성일</th>
                 <th scope="col" class="text-white">삭제하기</th>
                 </tr>
             </thead>
-            <c:forEach items="${replyInfo}" var="reply">
-            <tbody id="reply-${reply.id}">
+            <c:forEach items="${boardDetailInfo}" var="board">
+            <tbody id="board-${board.id}">
                 <tr>
-                <th scope="row" class="text-white">${reply.id}</th>
-                <td class="text-white">${reply.comment}</td>
-                <td class="text-white">${reply.userId}</td>
-                <td class="text-white">${reply.boardId}</td>
-                <td class="text-white">${reply.createdAt}</td>
+                <th scope="row" class="text-white">${board.id}</th>
+                <td class="text-white">${board.userId}</td>
+                <td class="text-white">${board.title}</td>
+                <td class="text-white">${board.content}</td>
+                <td class="text-white">${board.thumbnail}</td>
+                <td class="text-white">${board.likes}</td>
+                <td class="text-white">${board.createdAt}</td>
                 <td class="text-white" >
-                <button onClick="deleteByReplyId(${reply.id})" class="badge bg-secondary">삭제</button></td>
+                <button onClick="deleteByBoardId(${board.id})" class="badge bg-secondary">삭제</button></td>
                 </tr>
             </tbody>
             </c:forEach>
@@ -46,15 +50,15 @@
                 </form>
     </div>
     <script>
-            function deleteByReplyId(id) {
+            function deleteByBoardId(id) {
                 $.ajax({
                     type:"delete",
-                    url:"/admin/reply/"+id,
+                    url:"/admin/board/"+id,
                     dataType:"json" //json으로 받을 것이다
                 }).done((res)=>{ //20x일 때
                     alert(res.msg);
                     // location.reload(); //간단하게 현재 페이지로 리로드. 통신 두 번 요청
-                    $("#reply-"+id).remove(); // ajax 통신. 통신 한 번에 끝냄.
+                    $("#board-"+id).remove(); // ajax 통신. 통신 한 번에 끝냄.
                 }).fail((err)=>{ // 40x, 50x 일 때
                     alert(err.responseJSON.msg);
                 });

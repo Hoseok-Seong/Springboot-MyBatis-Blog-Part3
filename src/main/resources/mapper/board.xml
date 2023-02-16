@@ -59,4 +59,8 @@
       update board_tb set likes = likes + 1 where id = #{id}  
    </insert>
 
+   <select id="findByTitle" resultType="shop.mtcoding.blog.model.Board">
+      select * from board_tb where title = #{title}
+   </select>
+
 </mapper>
