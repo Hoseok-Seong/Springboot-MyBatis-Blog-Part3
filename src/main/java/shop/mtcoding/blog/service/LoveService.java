@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import shop.mtcoding.blog.dto.love.LoveReqDto.LoveSaveReqDto;
 import shop.mtcoding.blog.handler.exception.CustomApiException;
 import shop.mtcoding.blog.model.Board;
 import shop.mtcoding.blog.model.BoardRepository;
@@ -43,7 +42,7 @@ public class LoveService {
         if (result != 1) {
             throw new CustomApiException("좋아요 입력이 실패하였습니다", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
+        boardRepository.insertLikesCountById(boardId);
     }
 
     @Transactional
@@ -61,6 +60,7 @@ public class LoveService {
                     HttpStatus.INTERNAL_SERVER_ERROR);
             // 로그를 남겨야 함 (DB or File)
         }
+        boardRepository.deleteLikesCountById(boardId);
     }
 
 }

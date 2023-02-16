@@ -27,7 +27,6 @@
             글 번호 : <span id="id"><i>${boardDto.id} </i></span> 작성자 : <span><i>${boardDto.username} </i></span>
             <img id="heart-icon" src="/images/emptyheart.png/" alt="하트">
             <input id="boardId" type="hidden" name="id" value="${boardDto.id}">
-            <input id="principal" type="hidden" name="id" value="${principal.id}">
         </div>
         <script>
                 const heartIcon = document.getElementById("heart-icon");

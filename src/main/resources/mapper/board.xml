@@ -50,4 +50,13 @@
       on bt.user_id = ut.id
       where bt.id = #{id}
    </select>
+
+   <update id="deleteLikesCountById">
+      update board_tb set likes = likes - 1 where id = #{id}   
+   </update>
+
+   <insert id="insertLikesCountById"> 
+      update board_tb set likes = likes + 1 where id = #{id}  
+   </insert>
+
 </mapper>

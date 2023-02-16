@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.blog.dto.ResponseDto;
 import shop.mtcoding.blog.dto.love.LoveReqDto.LoveAllReqDto;
-import shop.mtcoding.blog.handler.exception.CustomApiException;
 import shop.mtcoding.blog.handler.exception.CustomException;
 import shop.mtcoding.blog.model.User;
 import shop.mtcoding.blog.service.LoveService;

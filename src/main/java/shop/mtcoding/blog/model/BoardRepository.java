@@ -31,4 +31,8 @@ public interface BoardRepository {
 
         public BoardUpdateRespDto findByIdForUpdate(int id);
 
+        public int insertLikesCountById(int id);
+
+        public int deleteLikesCountById(int id);
+
 }

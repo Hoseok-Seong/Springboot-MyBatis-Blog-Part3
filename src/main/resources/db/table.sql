@@ -14,6 +14,7 @@ create table board_tb(
     title varchar(100) not null,
     content longtext not null,
     thumbnail longtext not null,
+    likes int default 0,
     created_at timestamp not null
 );
 
