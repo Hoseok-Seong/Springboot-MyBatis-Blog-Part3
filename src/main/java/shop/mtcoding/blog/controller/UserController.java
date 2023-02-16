@@ -29,9 +29,6 @@ public class UserController {
     @Autowired
     private HttpSession session;
 
-    @Autowired
-    private ResourceLoader resourceLoader;
-
     @GetMapping("/joinForm")
     public String joinForm() {
         return "/user/joinForm";

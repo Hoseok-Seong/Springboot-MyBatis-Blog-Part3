@@ -25,8 +25,50 @@
 
         <div class="mb-2 text-white">
             글 번호 : <span id="id"><i>${boardDto.id} </i></span> 작성자 : <span><i>${boardDto.username} </i></span>
-            <i id="heart" class="fa-regular fa-heart ms-2 my-cursor" value=""></i>
+            <img id="heart-icon" src="/images/emptyheart.png/" alt="하트">
+            <input id="boardId" type="hidden" name="id" value="${boardDto.id}">
         </div>
+        <script>
+                const heartIcon = document.getElementById("heart-icon");
+                heartIcon.addEventListener("click", function() {
+                if (heartIcon.src.match("/images/emptyheart.png/")) {
+                heartIcon.src = "/images/fullheart.png/";
+
+                let data = {
+                boardId: $("#boardId").val()
+                };
+
+                $.ajax({
+                    type:"post",
+                    url:"/love/insert",
+                    data:JSON.stringify(data),
+                    headers:{
+                    "Content-Type":"application/json; charset=utf-8"
+                    },
+                    dataType:"json" //json으로 받을 것이다
+                }).done((res)=>{ //20x일 때
+                    alert(res.msg);
+                }).fail((err)=>{ // 40x, 50x 일 때
+                    alert(err.responseJSON.msg);
+                });
+                } 
+                else {
+                heartIcon.src = "/images/emptyheart.png/";
+
+                $.ajax({
+                    type:"delete",
+                    url:"/love/delete",
+                    dataType:"json" //json으로 받을 것이다
+                }).done((res)=>{ //20x일 때
+                    alert(res.msg);
+                }).fail((err)=>{ // 40x, 50x 일 때
+                    alert(err.responseJSON.msg);
+                });
+                }
+                });
+        </script>
+
+        
 
         <div class="text-white">
             <h3>${boardDto.title}</h3>
@@ -58,7 +100,7 @@
                     <div class="d-flex">
                         <div class="font-italic">작성자 : ${reply.username}</div>
                         <c:if test="${principal.id == reply.userId}" >
-                            <button onClick="DeleteByReplyId(${reply.id})" class="badge bg-secondary">삭제</button>
+                            <button onClick="deleteByReplyId(${reply.id})" class="badge bg-secondary">삭제</button>
                         </c:if>
                     </div>
                 </li>

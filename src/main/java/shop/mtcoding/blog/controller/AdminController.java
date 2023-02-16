@@ -56,8 +56,6 @@ public class AdminController {
 
     @PostMapping("/admin/login")
     public String adminLogin(LoginReqDto loginReqDto) {
-        session.invalidate();
-
         if (loginReqDto.getUsername() == null || loginReqDto.getUsername().isEmpty()) {
             throw new CustomException("아이디를 작성해주세요");
         }
@@ -65,6 +63,8 @@ public class AdminController {
         if (loginReqDto.getPassword() == null || loginReqDto.getPassword().isEmpty()) {
             throw new CustomException("비밀번호를 작성해주세요");
         }
+
+        session.invalidate();
 
         // 1. 로그인하기 service
         User principal = userService.로그인하기(loginReqDto);

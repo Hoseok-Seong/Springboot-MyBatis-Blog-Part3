@@ -1,32 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../layout/header.jsp" %>
     <div class="container my-3">
-    <nav class="nav nav-pills flex-column flex-sm-row">
-    <a class="flex-sm-fill text-sm-center nav-link" aria-current="page" href="/admin/user">유저 관리 페이지</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="/admin/board">게시글 관리 페이지</a>
-    <a class="flex-sm-fill text-sm-center nav-link active" href="/admin/reply">댓글 관리 페이지</a>
-    </nav>
-    <br/>
-        <div class="container">
-            <h2 class="text-center text-white">관리자 댓글 관리 페이지</h2>
-            <div class="card">
-            <div class="card-header">댓글 리스트</div>
-            <ul id="reply-box" class="list-group">
-                <c:forEach items="${replyInfo}" var="reply">
-                <li id="reply-${reply.id}" class="list-group-item d-flex justify-content-between">
-                    <div>${reply.id}</div>
-                    <div>${reply.comment}</div>
-                    <div>${reply.userId}</div>
-                    <div>${reply.boardId}</div>
-                    <div>${reply.createdAt}</div>
-                    <div class="d-flex">
-                            <button onClick="deleteByReplyId(${reply.id})" class="badge bg-secondary">삭제</button>        
-                    </div>
-                </li>
-                </c:forEach>
-            </ul>
-            </div>
-        </div>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          메뉴
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="/admin/user">유저 관리 페이지</a></li>
+          <li><a class="dropdown-item" href="/admin/board">게시글 관리 페이지</a></li>
+          <li><a class="dropdown-item" href="/admin/reply">댓글 관리 페이지</a></li>
+        </ul>
+      </div>
+      <br/>
+      <h2 class="text-center text-white">관리자 댓글 관리 페이지</h2>
+            <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                <th scope="col" class="text-white">번호</th>
+                <th scope="col" class="text-white">댓글</th>
+                <th scope="col" class="text-white">아이디</th>
+                <th scope="col" class="text-white">게시글번호</th>
+                <th scope="col" class="text-white">작성일</th>
+                <th scope="col" class="text-white">삭제하기</th>
+                </tr>
+            </thead>
+            <c:forEach items="${replyInfo}" var="reply">
+            <tbody id="reply-${reply.id}">
+                <tr>
+                <th scope="row" class="text-white">${reply.id}</th>
+                <td class="text-white">${reply.comment}</td>
+                <td class="text-white">${reply.userId}</td>
+                <td class="text-white">${reply.boardId}</td>
+                <td class="text-white">${reply.createdAt}</td>
+                <td class="text-white" >
+                <button onClick="deleteByReplyId(${reply.id})" class="badge bg-secondary">삭제</button></td>
+                </tr>
+            </tbody>
+            </c:forEach>
+            </table>
     </div>
     <script>
             function deleteByReplyId(id) {

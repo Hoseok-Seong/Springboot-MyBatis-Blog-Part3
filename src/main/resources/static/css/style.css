@@ -8,3 +8,7 @@ body {
     background-image: url("/images/background-image.jpg");
 }
 
+#heart-icon {
+    width: 25px;
+    height: 25px;
+}

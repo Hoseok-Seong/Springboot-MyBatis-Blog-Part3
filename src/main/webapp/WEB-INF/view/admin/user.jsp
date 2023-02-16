@@ -1,36 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../layout/header.jsp" %>
     <div class="container my-3">
-    <nav class="nav nav-pills flex-column flex-sm-row">
-    <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/admin/user">유저 관리 페이지</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="/admin/board">게시글 관리 페이지</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="/admin/reply">댓글 관리 페이지</a>
-    </nav>
-    <br/>
-        <div class="container">
-            <h2 class="text-center text-white">관리자 유저관리 페이지</h2>
-            <div class="card">
-            <div class="card-header">유저 리스트</div>
-            <ul id="reply-box" class="list-group">
-                <c:forEach items="${userInfo}" var="user">
-                <li id="user-${user.id}" class="list-group-item d-flex justify-content-between">
-                    <div>${user.id}</div>
-                    <div>${user.username}</div>
-                    <div>${user.password}</div>
-                    <div>${user.email}</div>
-                    <div>${user.profile}</div>
-                    <div>${user.role}</div>
-                    <div>${user.createdAt}</div>
-                    <div class="d-flex">
-                    <c:if test="${user.role != principal.role}" >
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          메뉴
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="/admin/user">유저 관리 페이지</a></li>
+          <li><a class="dropdown-item" href="/admin/board">게시글 관리 페이지</a></li>
+          <li><a class="dropdown-item" href="/admin/reply">댓글 관리 페이지</a></li>
+        </ul>
+      </div>
+      <br/>
+      <h2 class="text-center text-white">관리자 유저관리 페이지</h2>
+            <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                <th scope="col" class="text-white">번호</th>
+                <th scope="col" class="text-white">아이디</th>
+                <th scope="col" class="text-white">비밀번호</th>
+                <th scope="col" class="text-white">이메일</th>
+                <th scope="col" class="text-white">프로필</th>
+                <th scope="col" class="text-white">Role</th>
+                <th scope="col" class="text-white">작성일</th>
+                <th scope="col" class="text-white">삭제하기</th>
+                </tr>
+            </thead>
+            <c:forEach items="${userInfo}" var="user">
+            <tbody id="user-${user.id}">
+                <tr>
+                <th scope="row" class="text-white">${user.id}</th>
+                <td class="text-white">${user.username}</td>
+                <td class="text-white">${user.password}</td>
+                <td class="text-white">${user.email}</td>
+                <td class="text-white">${user.profile}</td>
+                <td class="text-white">${user.role}</td>
+                <td class="text-white">${user.createdAt}</td>
+                <td class="text-white" >
+                <c:if test="${user.role != principal.role}" >
                             <button onClick="deleteByUserId(${user.id})" class="badge bg-secondary">삭제</button>
-                    </c:if>        
-                    </div>
-                </li>
-                </c:forEach>
-            </ul>
-            </div>
-        </div>
+                </c:if>
+                </tr>
+            </tbody>
+            </c:forEach>
+            </table>
     </div>
     <script>
             function deleteByUserId(id) {
