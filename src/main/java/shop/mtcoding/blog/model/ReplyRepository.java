@@ -21,4 +21,6 @@ public interface ReplyRepository {
         public int updateById(@Param("id") int id, @Param("comment") String comment);
 
         public int deleteById(int id);
+
+        public List<Reply> findByKeyword(String keyword);
 }

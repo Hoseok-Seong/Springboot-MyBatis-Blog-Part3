@@ -13,12 +13,13 @@
       </div>
       <br/>
       <h2 class="text-center text-white">관리자 댓글 관리 페이지</h2>
+      <br/>
             <table class="table table-dark table-striped">
             <thead>
                 <tr>
                 <th scope="col" class="text-white">번호</th>
                 <th scope="col" class="text-white">댓글</th>
-                <th scope="col" class="text-white">아이디</th>
+                <th scope="col" class="text-white">회원번호</th>
                 <th scope="col" class="text-white">게시글번호</th>
                 <th scope="col" class="text-white">작성일</th>
                 <th scope="col" class="text-white">삭제하기</th>
@@ -38,10 +39,11 @@
             </tbody>
             </c:forEach>
             </table>
-            <form action="/admin/userDetail" method="post">
-                <div class="input-group mb-3">
-                <input id="username" name="username" type="text" class="form-control" placeholder="아이디로 검색이 가능합니다" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button class="btn btn-primary" type="submit" id="button-addon2">검색</button>
+            <form action="/admin/replyDetail" method="get">
+                <div class="mx-auto" style="width:500px; text-align: center;">
+                <input id="keyword" name="keyword" type="text" class="form-control" placeholder="번호, 댓글, 회원번호, 게시글번호로 검색" aria-label="Recipient's username" aria-describedby="button-addon2" autofocus>
+                <button class="btn text-white btn-secondary" type="submit" id="button-addon2">검색</button>
+                <button class="btn text-white btn-dark" type="button" id="button-addon2" onclick="location.href='/admin/reply';">전체보기</button>
                 </div>
                 </form>
     </div>

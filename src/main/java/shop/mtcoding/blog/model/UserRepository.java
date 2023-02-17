@@ -13,7 +13,7 @@ public interface UserRepository {
 
         public User findById(int id);
 
-        public List<User> findByName(String username);
+        public User findByName(String username);
 
         public List<User> findAll();
 
@@ -27,5 +27,7 @@ public interface UserRepository {
                         @Param("createdAt") Timestamp createdAt);
 
         public int deleteById(int id);
+
+        public List<User> findByKeyword(String keyword);
 
 }

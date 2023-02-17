@@ -4,6 +4,7 @@
         <div class="container">
             <form action="/admin/login" method="post">
             <h2 class="text-center text-white">관리자 로그인 페이지</h2>
+            <br/>
                 <div class="form-group mb-2">
                     <input type="text" name="username" class="form-control" placeholder="Enter username" id="username">
                 </div>
@@ -13,7 +14,7 @@
                         id="password">
                 </div>
 
-                <button type="submit" class="btn btn-primary">로그인</button>
+                <button type="submit" class="btn btn-dark">로그인</button>
             </form>
 
         </div>

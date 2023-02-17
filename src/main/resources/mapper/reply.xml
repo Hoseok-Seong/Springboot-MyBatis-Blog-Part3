@@ -30,5 +30,13 @@
 
     <update id="updateById" >
         update reply_tb set comment= #{comment} where id = #{id}
-    </update>    
+    </update>
+
+    <select id="findByKeyword" resultType="shop.mtcoding.blog.model.Reply">
+      SELECT * FROM reply_tb 
+      WHERE id LIKE CONCAT('%', #{keyword}, '%') 
+      OR comment LIKE CONCAT('%', #{keyword}, '%')
+      OR user_id LIKE CONCAT('%', #{keyword}, '%')
+      OR board_id LIKE CONCAT('%', #{keyword}, '%')
+    </select>    
 </mapper>

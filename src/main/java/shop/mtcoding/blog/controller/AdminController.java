@@ -176,8 +176,8 @@ public class AdminController {
 
     }
 
-    @PostMapping("/admin/userDetail")
-    public String adminUserDetail(Model model, String username) {
+    @GetMapping("/admin/userDetail")
+    public String adminUserDetail(Model model, String keyword) {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
             return "redirect:/admin/loginForm";
@@ -186,12 +186,12 @@ public class AdminController {
         if (!principal.getRole().equals("admin")) {
             throw new CustomException("관리자만 접속 가능합니다.");
         }
-        model.addAttribute("userDetailInfo", userRepository.findByName(username));
+        model.addAttribute("userDetailInfo", userRepository.findByKeyword(keyword));
         return "admin/userDetail";
     }
 
-    @PostMapping("/admin/boardDetail")
-    public String adminBoardDetail(Model model, String title) {
+    @GetMapping("/admin/boardDetail")
+    public String adminBoardDetail(Model model, String keyword) {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
             return "redirect:/admin/loginForm";
@@ -200,22 +200,21 @@ public class AdminController {
         if (!principal.getRole().equals("admin")) {
             throw new CustomException("관리자만 접속 가능합니다.");
         }
-        model.addAttribute("boardDetailInfo", boardRepository.findByTitle(title));
+        model.addAttribute("boardDetailInfo", boardRepository.findByKeyword(keyword));
         return "admin/boardDetail";
     }
 
-    // @PostMapping("/admin/replyDetail")
-    // public String adminReplyDetail(Model model, String username) {
-    // User principal = (User) session.getAttribute("principal");
-    // if (principal == null) {
-    // return "redirect:/admin/loginForm";
-    // }
+    @GetMapping("/admin/replyDetail")
+    public String adminReplyDetail(Model model, String keyword) {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/admin/loginForm";
+        }
 
-    // if (!principal.getRole().equals("admin")) {
-    // throw new CustomException("관리자만 접속 가능합니다.");
-    // }
-    // model.addAttribute("replyDetailInfo", userRepository.findByName(username));
-    // return "admin/userDetail";
-    // }
-
+        if (!principal.getRole().equals("admin")) {
+            throw new CustomException("관리자만 접속 가능합니다.");
+        }
+        model.addAttribute("replyDetailInfo", replyRepository.findByKeyword(keyword));
+        return "admin/replyDetail";
+    }
 }

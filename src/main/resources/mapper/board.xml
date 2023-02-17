@@ -59,8 +59,12 @@
       update board_tb set likes = likes + 1 where id = #{id}  
    </insert>
 
-   <select id="findByTitle" resultType="shop.mtcoding.blog.model.Board">
-      select * from board_tb where title = #{title}
+   <select id="findByKeyword" resultType="shop.mtcoding.blog.model.Board">
+      SELECT * FROM board_tb 
+      WHERE id LIKE CONCAT('%', #{keyword}, '%') 
+      OR user_id LIKE CONCAT('%', #{keyword}, '%')
+      OR title LIKE CONCAT('%', #{keyword}, '%')
+      OR content LIKE CONCAT('%', #{keyword}, '%')
    </select>
 
 </mapper>
