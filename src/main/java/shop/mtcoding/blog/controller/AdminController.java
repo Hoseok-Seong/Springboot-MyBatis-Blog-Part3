@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.blog.dto.ResponseDto;
@@ -94,6 +94,7 @@ public class AdminController {
 
         model.addAttribute("userInfo", userRepository.findAll());
         return "admin/user";
+
     }
 
     @DeleteMapping("/admin/user/{id}")
@@ -177,17 +178,18 @@ public class AdminController {
     }
 
     @GetMapping("/admin/userDetail")
-    public String adminUserDetail(Model model, String keyword) {
+    public @ResponseBody ResponseEntity<?> adminUserDetail(Model model,
+            @RequestParam(required = false, value = "keyword") String keyword) {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
-            return "redirect:/admin/loginForm";
+            throw new CustomApiException("인증이 실패했습니다", HttpStatus.UNAUTHORIZED);
         }
 
         if (!principal.getRole().equals("admin")) {
-            throw new CustomException("관리자만 접속 가능합니다.");
+            throw new CustomApiException("관리자만 접속 가능합니다.");
         }
         model.addAttribute("userDetailInfo", userRepository.findByKeyword(keyword));
-        return "admin/userDetail";
+        return new ResponseEntity<>(new ResponseDto<>(1, "조회 성공", null), HttpStatus.OK);
     }
 
     @GetMapping("/admin/boardDetail")

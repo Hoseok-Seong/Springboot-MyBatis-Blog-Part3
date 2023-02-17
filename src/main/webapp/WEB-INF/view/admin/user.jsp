@@ -14,7 +14,7 @@
       <br/>
       <h2 class="text-center text-white">관리자 유저 관리 페이지</h2>
       <br/>
-            <table class="table table-dark table-striped">
+            <table id="postBox" class="table table-dark table-striped">
             <thead>
                 <tr>
                 <th scope="col" class="text-white">회원번호</th>
@@ -45,19 +45,55 @@
             </tbody>
             </c:forEach>
             </table>
-                <form id="keyword-form" action="/admin/userDetail" method="get">
                 <div class="mx-auto" style="width:500px; text-align: center;">
                 <input id="keyword" name="keyword" type="text" class="form-control mx-auto" placeholder="아이디나 회원번호로 검색" aria-label="Recipient's username" aria-describedby="button-addon2" autofocus>
-                <button class="btn text-white btn-secondary" type="submit" id="button-addon2">검색</button>
-                <button class="btn text-white btn-dark" type="button" id="button-addon2" onclick="location.href='/admin/user';">전체보기</button>
+                <button onClick="getKeyword()" class="btn text-white btn-secondary" type="button">검색</button>
+                <button class="btn text-white btn-dark" type="button" onclick="location.href='/admin/user';">전체보기</button>
                 </div>
-                </form>
-                <%-- <script>
-                $('#keyword').on('input', function() {
-                    $('#keyword-form').submit();
-                });
-                </script> --%>
     </div>
+        <script>
+            function getKeyword() {
+                let keyword = $('#keyword').val();
+                $.ajax({
+                    type:"get",
+                    url:"/admin/userDetail?="+keyword,
+                    dataType:"json" //json으로 받을 것이다
+                }).done((res)=>{ //20x일 때
+                    if (res.code == 1) {
+                        // render(res.data);
+                        console.log(res.data);
+                    } else {
+                        alert("통신실패");
+                    }
+                    alert(res.msg);
+                }).fail((err)=>{ // 40x, 50x 일 때
+                    alert(err.responseJSON.msg);
+                });
+            }
+
+            function render(userDetailInfo) {
+                userDetailInfo.forEach((user) => {
+                let el = `
+                    <tbody id="user-${user.id}">
+                        <tr>
+                        <th scope="row" class="text-white">${user.id}</th>
+                        <td class="text-white">${user.username}</td>
+                        <td class="text-white">${user.password}</td>
+                        <td class="text-white">${user.email}</td>
+                        <td class="text-white">${user.profile}</td>
+                        <td class="text-white">${user.role}</td>
+                        <td class="text-white">${user.createdAt}</td>
+                        <td class="text-white" >
+                        <c:if test="${user.role != principal.role}" >
+                                    <button onClick="deleteByUserId(${user.id})" class="badge bg-secondary">삭제</button>
+                        </c:if>
+                        </tr>
+                    </tbody>
+                `;
+                $("#postBox").append(el);
+            });
+            }
+        </script>
                 
             
         <script>

@@ -14,7 +14,7 @@
       <br/>
       <h2 class="text-center text-white">관리자 유저 관리 페이지</h2>
       <br/>
-            <table class="table table-dark table-striped">
+            <table id="postBox" class="table table-dark table-striped">
             <thead>
                 <tr>
                 <th scope="col" class="text-white">회원번호</th>
