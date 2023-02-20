@@ -1,7 +1,5 @@
 package shop.mtcoding.blog.service;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -10,10 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.blog.handler.exception.CustomApiException;
 import shop.mtcoding.blog.model.Board;
 import shop.mtcoding.blog.model.BoardRepository;
+import shop.mtcoding.blog.model.Love;
 import shop.mtcoding.blog.model.LoveRepository;
-import shop.mtcoding.blog.model.User;
 
-@Transactional(readOnly = true)
 @Service
 public class LoveService {
 
@@ -23,44 +20,35 @@ public class LoveService {
     @Autowired
     private BoardRepository boardRepository;
 
-    @Autowired
-    private HttpSession session;
-
     @Transactional
-    public void 좋아요입력(int principalId, int boardId) {
-        Board boardPS = boardRepository.findById(boardId);
-        if (boardPS == null) {
-            throw new CustomApiException("존재하지 않는 게시글입니다");
+    public int 좋아요(int boardId, int userId) {
+        // 게시글 존재 여부 체크
+        Board boardOP = boardRepository.findById(boardId);
+        if (boardOP == null) {
+            throw new CustomApiException("게시글이 존재하지 않습니다");
         }
 
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            throw new CustomApiException("로그인을 해주세요");
-        }
-
-        int result = loveRepository.insert(principal.getId(), boardId);
-        if (result != 1) {
-            throw new CustomApiException("좋아요 입력이 실패하였습니다", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        boardRepository.insertLikesCountById(boardId);
+        Love love = new Love();
+        love.setBoardId(boardId);
+        love.setUserId(userId);
+        loveRepository.insert(love);
+        return love.getId();
     }
 
     @Transactional
-    public void 좋아요삭제(int userId, int boardId) {
-        Board boardPS = boardRepository.findById(boardId);
-        if (boardPS == null) {
-            throw new CustomApiException("존재하지 않는 게시글입니다");
+    public void 좋아요취소(int id, int userId) {
+        Love lovePS = loveRepository.findById(id);
+        if (lovePS == null) {
+            throw new CustomApiException("게시글이 존재하지 않습니다");
         }
 
-        // 제어권이 없으므로 try, catch
-        try {
-            loveRepository.deleteByUserIdWithBoardId(userId, boardId);
-        } catch (Exception e) {
-            throw new CustomApiException("서버에 일시적인 문제가 발생했습니다",
-                    HttpStatus.INTERNAL_SERVER_ERROR);
-            // 로그를 남겨야 함 (DB or File)
+        if (lovePS.getUserId() != userId) {
+            throw new CustomApiException("좋아요 취소 권한이 없습니다", HttpStatus.FORBIDDEN);
         }
-        boardRepository.deleteLikesCountById(boardId);
+        int result = loveRepository.deleteById(id); // 핵심 로직
+        if (result != 1) {
+            throw new CustomApiException("서버 에러", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

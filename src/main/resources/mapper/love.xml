@@ -12,8 +12,8 @@
         select * from love_tb where id = #{id}
     </select>    
 
-    <insert id="insert">
-        insert into love_tb (user_id, board_id, created_at) values(#{userId}, #{boardId}, now())
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into love_tb (board_id, user_id, created_at) values(#{boardId}, #{userId}, now())
     </insert>    
 
     <delete id="deleteById" >
@@ -21,10 +21,10 @@
     </delete>    
 
     <update id="updateById" >
-        update love_tb set user_id= #{userId}, board_id=#{boardId}, where id = #{id}
-    </update>
+        update love_tb set board_id= #{boardId},user_id= #{userId}, created_at= #{createdAt} where id = #{id}
+    </update>    
 
-    <delete id="deleteByUserIdWithBoardId" >
-        delete from love_tb where user_id= #{userId} and board_id=#{boardId}
-    </delete>      
+    <select id="findByBoardIdAndUserId" resultType="shop.mtcoding.blog.model.Love">
+        select * from love_tb where board_id = #{boardId} and user_id = #{userId}
+    </select>
 </mapper>

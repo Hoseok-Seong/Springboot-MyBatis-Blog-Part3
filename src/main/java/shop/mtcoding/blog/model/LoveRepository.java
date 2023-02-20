@@ -1,22 +1,21 @@
 package shop.mtcoding.blog.model;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface LoveRepository {
+
     public List<Love> findAll();
 
     public Love findById(int id);
 
-    public int insert(@Param("userId") int userId, @Param("boardId") int boardId);
+    public int insert(Love love);
 
-    public int updateById(@Param("userId") int userId, @Param("boardId") int boardId);
+    public int updateById(Love love);
 
     public int deleteById(int id);
 
-    public int deleteByUserIdWithBoardId(@Param("userId") int userId, @Param("boardId") int boardId);
-
+    public Love findByBoardIdAndUserId(int boardId, int userId);
 }

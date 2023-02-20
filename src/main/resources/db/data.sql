@@ -29,4 +29,7 @@ insert into reply_tb(comment, user_id, board_id, created_at) values('댓글10', 
 insert into reply_tb(comment, user_id, board_id, created_at) values('댓글11', '2', '4', now());
 insert into reply_tb(comment, user_id, board_id, created_at) values('댓글12', '3', '4', now());
 
+INSERT INTO love_tb(board_id, user_id, created_at) values(1, 1, now());
+INSERT INTO love_tb(board_id, user_id, created_at) values(1, 2, now());
+
 commit;
